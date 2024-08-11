@@ -20,20 +20,20 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Funcionario {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long idFuncionario;
-	
-	private String nome;
-	private String email;
-	private String telefone;
-	private int idade;
-	private String endereco;
-	private String funcao;
-	
-	@OneToMany(mappedBy = "funcionario")
-	@JsonIgnoreProperties("funcionario")
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long idFuncionario;
+    
+    private String nome;
+    private String email;
+    private String telefone;
+    private int idade;
+    private String endereco;
+    private String funcao;
+    
+    @OneToMany(mappedBy = "funcionario")
+    @JsonIgnoreProperties("funcionario")
     private List<Venda> vendas;
-	
+    
 }

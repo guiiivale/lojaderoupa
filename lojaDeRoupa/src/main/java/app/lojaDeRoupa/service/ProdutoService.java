@@ -17,7 +17,7 @@ public class ProdutoService {
 	
 	public String save (Produto produto) {
 		this.produtoRepository.save(produto);
-		return "Carro cadastrado com sucesso";
+		return "Produto cadastrado com sucesso.";
 	}
 	
 	public String update (Produto produto, long id) {
@@ -44,7 +44,11 @@ public class ProdutoService {
 	
 	public String delete (long id) {
 		this.produtoRepository.deleteById(id);
-		return "Veículo deletado com sucesso!";
+		return "Produto deletado com sucesso!";
 	}
+	
+	public List<Produto> findTop10ByPreco() {
+        return produtoRepository.findTop10ByOrderByPrecoDesc();
+    }
 
 }

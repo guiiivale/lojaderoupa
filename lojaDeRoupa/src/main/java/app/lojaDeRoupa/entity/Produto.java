@@ -20,22 +20,17 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Produto {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long idProduto;
-	
-	private String nome;
-	private String descricao;
-	private Double preco;
-	
-	@ManyToMany(mappedBy = "produtos")
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long idProduto;
+    
+    private String nome;
+    private String descricao;
+    private Double preco;
+    
+    @ManyToMany(mappedBy = "produtos")
     @JsonIgnoreProperties("produtos")
     private List<Venda> vendas;
-
-	public void setIdProduto(long id) {
-		// TODO Auto-generated method stub
-		
-	}
-	
+    
 }

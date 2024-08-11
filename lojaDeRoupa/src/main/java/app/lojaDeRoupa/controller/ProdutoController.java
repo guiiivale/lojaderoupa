@@ -74,4 +74,13 @@ public class ProdutoController {
 		}
 	}
 
+	@GetMapping("/top10")
+    public ResponseEntity<List<Produto>> findTop10ByPreco() {
+        try {
+            List<Produto> produtos = produtoService.findTop10ByPreco();
+            return new ResponseEntity<>(produtos, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
 }

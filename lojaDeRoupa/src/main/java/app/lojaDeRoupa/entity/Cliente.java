@@ -20,19 +20,19 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Cliente {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long idCliente;
-	
-	private String nome;
-	private String email;
-	private String telefone;
-	private int idade;
-	private String endereco;
-	
-	@OneToMany(mappedBy = "cliente")
-	@JsonIgnoreProperties("cliente")
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long idCliente;
+    
+    private String nome;
+    private String email;
+    private String telefone;
+    private int idade;
+    private String endereco;
+    
+    @OneToMany(mappedBy = "cliente")
+    @JsonIgnoreProperties("cliente")
     private List<Venda> vendas;
-	
+    
 }

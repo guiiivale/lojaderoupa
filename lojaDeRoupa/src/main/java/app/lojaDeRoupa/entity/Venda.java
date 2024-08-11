@@ -23,25 +23,25 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Venda {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idVenda;
-	
-	private String obs;
-	private Double valorTotalVenda;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("vendas")
-	private Cliente cliente;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idVenda;
+    
+    private String obs;
+    private Double valorTotalVenda;
+    
+    @ManyToOne
+    @JsonIgnoreProperties("vendas")
+    private Cliente cliente;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("vendas")
-	private Funcionario funcionario;
-	
-	@ManyToMany
-	@JoinTable(name="vendaProduto")
-	@JsonIgnoreProperties("vendas")
-	private List<Produto> produtos;
-	
+    @ManyToOne
+    @JsonIgnoreProperties("vendas")
+    private Funcionario funcionario;
+    
+    @ManyToMany
+    @JoinTable(name="vendaProduto")
+    @JsonIgnoreProperties("vendas")
+    private List<Produto> produtos;
+    
 }

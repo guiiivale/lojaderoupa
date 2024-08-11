@@ -1,9 +1,10 @@
 package app.lojaDeRoupa.repository;
 
+import app.lojaDeRoupa.entity.Produto;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import app.lojaDeRoupa.entity.Produto;
+import java.util.List;
 
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
-
+	List<Produto> findTop10ByOrderByPrecoDesc();
 }
