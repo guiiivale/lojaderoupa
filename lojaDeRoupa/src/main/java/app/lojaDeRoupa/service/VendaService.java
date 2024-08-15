@@ -27,13 +27,12 @@ public class VendaService {
     @Autowired
     private FuncionarioRepository funcionarioRepository;
 
-
     public String save(Venda venda) {
         double valorTotal = 0.0;
 
         for (Produto produto : venda.getProdutos()) {
             Produto produtoCompleto = produtoRepository.findById(produto.getIdProduto())
-                                     .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
+                    .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
 
             if (produtoCompleto.getPreco() != null) {
                 valorTotal += produtoCompleto.getPreco();
@@ -42,26 +41,29 @@ public class VendaService {
             }
         }
 
-        venda.setValorTotalVenda(valorTotal);
-
         Cliente cliente = venda.getCliente();
         if (cliente != null) {
             cliente = clienteRepository.findById(cliente.getIdCliente())
-                        .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
+                    .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
             venda.setCliente(cliente);
+
+            if (cliente.getIdade() < 18 && valorTotal > 500.0) {
+                throw new RuntimeException("Não pode comprar acima de 500 reais");
+            }
         }
+
+        venda.setValorTotalVenda(valorTotal);
 
         Funcionario funcionario = venda.getFuncionario();
         if (funcionario != null) {
             funcionario = funcionarioRepository.findById(funcionario.getIdFuncionario())
-                          .orElseThrow(() -> new IllegalArgumentException("Funcionário não encontrado"));
+                    .orElseThrow(() -> new IllegalArgumentException("Funcionário não encontrado"));
             venda.setFuncionario(funcionario);
         }
 
         vendaRepository.save(venda);
         return "Venda cadastrada com sucesso.";
     }
-
 
     public String update(Venda venda, long id) {
         venda.setIdVenda(id);
@@ -88,7 +90,7 @@ public class VendaService {
         this.vendaRepository.deleteById(id);
         return "Venda deletada com sucesso!";
     }
-    
+
     public List<Venda> findByClienteNome(String nome) {
         return vendaRepository.findByClienteNomeContaining(nome);
     }

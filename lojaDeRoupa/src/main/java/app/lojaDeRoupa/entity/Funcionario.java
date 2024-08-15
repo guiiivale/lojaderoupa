@@ -12,6 +12,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,23 +29,29 @@ public class Funcionario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idFuncionario;
     
+    @NotBlank(message = "O nome não pode ser vazio.")
+    @Pattern(regexp = "^[\\p{L}]+(?:\\s+[\\p{L}]+)+$", message = "O nome deve conter pelo menos duas palavras.")
     private String nome;
     
     @Email(message = "O e-mail deve ser válido.")
     private String email;
+
+    @Pattern(regexp = "^\\(\\d{2}\\) \\d{4,5}-\\d{4}$", message = "O telefone deve seguir o padrão: (XX) XXXX-XXXX ou (XX) XXXXX-XXXX.")
     private String telefone;
-    
+
+    @Pattern(regexp = "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}", message = "O CPF deve ser válido e seguir o padrão XXX.XXX.XXX-XX.")
     private String cpf;
-    
+
     @Min(value = 0, message = "A idade não pode ser negativa.")
     private int idade;
     
     @NotBlank(message = "O endereço não pode ser vazio.")
+    @Pattern(regexp = "^\\d{5}-\\d{3}$", message = "O CEP deve seguir o padrão brasileiro (XXXXX-XXX).")
     private String endereco;
+    
     private String funcao;
     
     @OneToMany(mappedBy = "funcionario")
     @JsonIgnoreProperties("funcionario")
     private List<Venda> vendas;
-    
 }
