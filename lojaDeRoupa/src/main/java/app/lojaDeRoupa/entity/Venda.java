@@ -12,6 +12,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,9 +31,11 @@ public class Venda {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idVenda;
     
+    @NotBlank(message = "A observação não pode ser vazia.")
     private String obs;
     private Double valorTotalVenda;
     
+    @NotNull(message = "A venda precisa ter um cliente.")
     @ManyToOne
     @JsonIgnoreProperties("vendas")
     private Cliente cliente;
@@ -39,6 +44,7 @@ public class Venda {
     @JsonIgnoreProperties("vendas")
     private Funcionario funcionario;
     
+    @NotEmpty(message = "A venda precisa ter no mínimo um produto.")
     @ManyToMany
     @JoinTable(name="vendaProduto")
     @JsonIgnoreProperties("vendas")
